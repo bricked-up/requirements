@@ -1,6 +1,7 @@
 #+title: Bricked-Up Specification: Backend
 #+author: Rumen Mitov
 #+latex_class: article
+#+LATEX_HEADER: \usepackage[margin=2cm]{geometry}
 #+latex_compiler: pdflatex
 #+export_file_name: backend.pdf
 #+date: \today
@@ -18,6 +19,7 @@ Once a week, the backend lead will merge ~dev~ to ~master~.
 
 ** PR Approval Criteria
 Here are the criteria the PR must adhere to in order to be accepted:
+
 - No merge conflicts
 - All tests are passing
 - New features *must* come with unit tests
@@ -27,6 +29,7 @@ Here are the criteria the PR must adhere to in order to be accepted:
   
 ** Commit Message Prefix
 This applies to final commits (i.e. commits when merging to ~dev~):
+
 | Commit Type | Issue Type        | Github Action    | Use Case                                               |
 |-------------+-------------------+------------------+--------------------------------------------------------|
 | feat        | <feature>         | close <issue nr> | Introduction of a new feature.                         |
@@ -37,6 +40,7 @@ This applies to final commits (i.e. commits when merging to ~dev~):
 | misc        | x                 | x                | Miscellaneous (renaming of files, removing junk, etc.) |
 
 An example merge commit message would be the following:
+
 #+begin_example
 feat(login, close #13): created login endpoint
 #+end_example
@@ -218,6 +222,7 @@ All features should have unit tests.
 
 * Deployment
 The following describes the full deployment pipeline (assuming task is complete and ready to be pushed upstream):
+
 1. All [[*Testing][tests]] run successfully
 2. [[*PR Approval Criteria][PR]] is submitted (tests are run on Github Actions to ensure everything works)
 3. PR is reviewed by lead (must be accepted to continue)
