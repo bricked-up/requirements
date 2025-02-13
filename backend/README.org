@@ -99,7 +99,7 @@ We will use Nginx as a reverse-proxy due to its ease-of-configuration and perfor
 The production database file will be called: ~bricked-up_prod.db~ and it will be located in the root of the repo (will live only on the server, all *.db files will be ignored by ~.gitignore~).
 
 #+caption: A [[https://mermaid.js][Mermaid.js]] ER Diagram describing our database schema:
-#+begin_src
+#+begin_src mermaid
 ---
 config:
   theme: dark
