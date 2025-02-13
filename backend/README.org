@@ -27,17 +27,16 @@ Here are the criteria the PR must adhere to in order to be accepted:
   
 ** Commit Message Prefix
 This applies to final commits (i.e. commits when merging to ~dev~):
-- *feat(<feature>, close <github issue nr.>)*: description
-- *refactor(<feature>, close <github issue nr.>)*: description
-- *fix(<feature>, close <github issue nr.>):* description
-- *hotfix(<bug>, close <github issue nr.>)*: description
-- *bug(<bug>, close <github issue nr.>)*: description
-- *tests(<feature>, close <github issue nr.>)*: description
-- *misc*: description
-- *docs*: description
-- *update*: description
+| Commit Type | Issue Type        | Github Action    | Use Case                                               |
+|-------------+-------------------+------------------+--------------------------------------------------------|
+| feat        | <feature>         | close <issue nr> | Introduction of a new feature.                         |
+| refactor    | <feature>         | close <issue nr> | Changing the implementation of an existing feature.    |
+| fix         | <feature> / <bug> | close <issue nr> | Fixing a feature or a bug.                             |
+| tests       | <feature>         | close <issue nr> | Adding / removing / changing tests.                    |
+| docs        | x                 | x                | Documentation.                                         |
+| misc        | x                 | x                | Miscellaneous (renaming of files, removing junk, etc.) |
 
-#+caption: Example merge commit message.
+An example merge commit message would be the following:
 #+begin_example
 feat(login, close #13): created login endpoint
 #+end_example
