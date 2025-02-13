@@ -1,7 +1,6 @@
 #+title: Bricked-Up Specification: Backend
 #+author: Rumen Mitov
 #+latex_class: article
-#+latex_header_extra:
 #+latex_compiler: pdflatex
 #+date: \today
 
@@ -9,6 +8,8 @@
 Each member of the team is expected to work 10 hours per week. The member should record what they are working on, and how long they worked on it.
 
 Each member will have the freedom to choose a feature / task to work on (unless there are some urgent tasks). To start working on a task, the member must first create a GitHub issue describing what the task entails. The member then branches off of the upstream branch to work on the task. Once the task is finished, the member submits a Pull Request (aka PR) to the ~dev~ branch and requests a PR Review from the backend lead. The PR will need to adhere to the criteria specified in [[*PR Approval Criteria][PR Approval Criteria]] in order to be approved.
+
+Whoever creates the feature is responsible for maintaining it. We will do this to exploit the maintainers familiarity with the code, thus saving time.
 
 By this we aim to increase the concurrency with which our team operates. Status updates will be discussed during weekly team meetings in order to facilitate discussion and to keep the bigger picture in mind.
 
