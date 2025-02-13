@@ -2,6 +2,7 @@
 #+author: Rumen Mitov
 #+latex_class: article
 #+latex_compiler: pdflatex
+#+export_file_name: backend.pdf
 #+date: \today
 
 * Productivity Scheme
