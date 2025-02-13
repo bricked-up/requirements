@@ -79,13 +79,19 @@ architecture-beta
     service nginx(internet)[nginx] in vps
     service sqlite(database)[sqlite] in vps
     service frontend(server)[frontend] in vps
+    service cicd(server)[CICD] in vps 
 
     group container(internet)[container] in vps
     service backend(server)[backend] in container
     
+    group docs(internet)[container] in vps
+    service backenddocs(server)[docs] in docs
+
     nginx:L -- R:traffic
     nginx:T -- B:backend
     nginx:R -- L:frontend
+    nginx:B -- T:backenddocs
+    nginx:R -- L:cicd
 
     backend:R -- L:sqlite
 #+end_src
@@ -104,7 +110,9 @@ Authentication between the client and the server will be done through session to
 ** Containerization: Podman
 We will use the Podman to containerize our backend, due to Podman's rootless capabilities, open source nature and Kubernetes-like offerings. We will use podman's virtual bridging to isolate the database container entirely and partially isolate the Golang application.
 
-The Golang backend will be a container called ~backend-prod~ with exposed port ~3100:443~. The Sqlite [[*Database Design][database file]] (~~bricked-up_prod.db~) will be linked as a _volume_ to ~backend-prod~
+The Golang backend will be a container called ~backend-prod~ with exposed port ~3100:443~. The Sqlite [[*Database Design][database file]] (~bricked-up_prod.db~) will be mounted as a _volume_ to ~backend-prod~.
+
+Additionally, the [[*Documentation][backend docs]] will be in a container called ~backend-docs~ with exposed port ~6060:6060~.
    
 ** Reverse-Proxy: Nginx
 We will use Nginx as a reverse-proxy due to its ease-of-configuration and performance. Assuming that our domain name is ~<brickedup>~  this will be the hierarchy of our sub-domains:
