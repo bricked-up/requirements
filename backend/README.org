@@ -139,9 +139,23 @@ config:
 title: Bricked-Up ER-Diagram
 ---
 erDiagram
-    TEAM {
+
+    %% 
+    %% Primative Entities
+    %% 
+
+    ORGANIZATION {
         int id PK
         string name UK
+    }
+
+    ORG_ROLE {
+        int id PK
+        int orgid FK
+        string name
+        bool read
+        bool write
+        bool exec
     }
 
     USER {
@@ -151,8 +165,19 @@ erDiagram
     
     PROJECT {
         int id PK
-        int teamid FK
-        string name UK
+        int orgid FK
+        string name
+        int budget
+        bool arhived
+    }
+
+    PROJECT_ROLE {
+        int id PK
+        int projectid FK
+        string name
+        bool read
+        bool write
+        bool exec
     }
 
     ISSUE {
@@ -160,31 +185,73 @@ erDiagram
         string title
         string desc
         int tagid FK
+        int priorityid FK
+        date created
+        date completed
+        int cost
     }
 
     TAG {
         int id PK
         int projectid FK
-        string name UK
+        string name
+
+        %% color should be stored as a hex value
+        int color 
     }
 
+    PRIORITY {
+        int id PK
+        int projectid FK
+        string name
+        int priority
+    }    
 
-    USER |o--o{ USERS_IN_TEAMS : in
-    TEAM ||--|{ USERS_IN_TEAMS :has
-    USERS_IN_TEAMS {
+    REMINDER {
+        int id PK
+        int issueid FK
+        int userid FK
+    }
+
+    %% 
+    %% Relationships
+    %% 
+
+    %% Organization members
+    USER |o--o{ ORG_MEMBER : is
+    ORGANIZATION ||--|{ ORG_MEMBER :has
+    ORG_MEMBER {
         int id PK
         int userid FK
-        int teamid FK
+        int orgid FK
     }
 
-    TEAM ||--o{ TEAM_PROJECTS : has
-    PROJECT ||--o| TEAM_PROJECTS : belongs_to
-    TEAM_PROJECTS {
+    %% Organization roles
+    ORG_MEMBER ||--|| ORG_ROLE : has
+    ORGANIZATION ||--|{ ORG_ROLE : offers
+
+    %% Organization projects
+    ORGANIZATION ||--o{ ORG_PROJECTS : has
+    PROJECT ||--|| ORG_PROJECTS : belongs_to
+    ORG_PROJECTS {
         int id PK
-        int teamid FK
+        int orgid FK
         int projectid FK
     }
 
+    %% Project members
+    PROJECT ||--|{ PROJECT_MEMBER :has
+    PROJECT_MEMBER {
+        int id PK
+        int userid FK
+        int projectid FK
+    }
+
+    %% Project roles
+    PROJECT ||--|{ PROJECT_ROLE : has
+    PROJECT_MEMBER ||--|{ PROJECT_ROLE : has
+
+    %% Project issues
     PROJECT ||--o{ PROJECT_ISSUES : has
     ISSUE ||--|| PROJECT_ISSUES : belongs_to
     PROJECT_ISSUES {
@@ -193,6 +260,7 @@ erDiagram
         int issueid FK
     }
 
+    %% User-assigned issues
     USER ||--o{ USER_ISSUES : responsible_for
     ISSUE ||--o{ USER_ISSUES : assigned_to
     USER_ISSUES {
@@ -201,9 +269,17 @@ erDiagram
         int issueid FK
     }
 
+    %% Tags
     ISSUE ||--o| TAG : has
-
     PROJECT ||--o{ TAG : offers
+
+    %% Priorities
+    ISSUE ||--o| PRIORITY : has
+    PROJECT ||--o{ PRIORITY : offers
+
+    %% Reminders
+    ISSUE ||--o{ REMINDER : sends 
+    USER }o--o{ REMINDER : targets
 #+end_src
 
 * Documentation
