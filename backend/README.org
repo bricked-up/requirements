@@ -177,6 +177,7 @@ erDiagram
         int orgid FK
         string name
         int budget
+        string charter
         bool arhived
     }
 
