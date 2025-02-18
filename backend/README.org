@@ -313,5 +313,5 @@ The following describes the full deployment pipeline (assuming task is complete 
 3. PR is reviewed by lead (must be accepted to continue)
 4. Lead *squash merges* PR into ~dev~ branch (task issue is closed)
 5. ~dev~ is *squash merged* to ~master~ branch (happens once a week)
-6. once a change has been pushed to ~master~, a webhook is sent to our server's [[*Containerization: Podman][CI/CD]]
+6. Once a change has been pushed to ~master~, a webhook is sent to our server's [[*Containerization: Podman][CI/CD]]
 7. CI/CD program pulls changes and rebuilds backend on the server
