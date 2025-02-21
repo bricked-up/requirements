@@ -45,6 +45,10 @@ An example merge commit message would be the following:
 feat(login, close #13): created login endpoint
 #+end_example
 
+** Creation of Issues
+
+Whenever appropriate use the repository's issue templates. If a heading is irrelevant (i.e. empty) delete it.
+
 * System Requirements
  We will be utilizing a traditional client-server architecture with a centralized database (as opposed to a distributed one), we will require a Virtual Private Server. The state of the project is still an MVP, hence we are not expecting a lot of users. Thus, the server does not need to be powerful; we prioritize cost over performance. A cheap configuration from a provider like [[https://www.hetzner.com/cloud/][Hetzner]] should suffice:
 
@@ -313,6 +317,22 @@ erDiagram
 
 * Documentation
 We will use [[https://pkg.go.dev/golang.org/x/tools/cmd/godoc][godoc]] to generate documentation. This will be hosted on ~localhost:6060~.
+
+The comments should be written in the following manner if they are to appear in the documentation:
+#+caption: [[https://medium.com/novai-go-programming-101/creating-documentation-for-go-projects-4d5049e9c8c5][Source]]
+#+begin_src go
+  // Package packageName provides functionalities related to ...
+  package packageName
+
+  // TypeName represents ...
+  type TypeName struct {
+          FieldName int // Description of FieldName
+  }
+
+  // FunctionName performs ...
+  func FunctionName(arg1 int, arg2 string) {
+  }
+#+end_src
 
 * Testing
 We will use Go's [[https://pkg.go.dev/testing][testing]] package.
