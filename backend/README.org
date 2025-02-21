@@ -72,7 +72,7 @@ The backend should be capable of handling relatively low-workloads without outag
 #+begin_src mermaid
 ---
 config:
-  theme: dark
+theme: dark
 title: Bricked-Up Architecture
 ---
 architecture-beta
@@ -144,7 +144,7 @@ The production database file will be called: ~bricked-up_prod.db~ and it will be
 #+begin_src mermaid
 ---
 config:
-  theme: dark
+theme: dark
 title: Bricked-Up ER-Diagram
 ---
 erDiagram
@@ -169,7 +169,15 @@ erDiagram
 
     USER {
         int id PK
+        int verifyid FK
+        string email UK
         string name
+    }
+
+    SESSION {
+        int id PK
+        int userid FK
+        date expires
     }
     
     PROJECT {
@@ -226,6 +234,17 @@ erDiagram
     %% 
     %% Relationships
     %% 
+
+    %% Verify user
+    USER ||--o| VERIFY_USER : is
+    VERIFY_USER {
+        int id PK
+        int code UK
+        date expires
+    }
+
+    %% User login sessions
+    USER ||--o{ SESSION : has
 
     %% Organization members
     USER |o--o{ ORG_MEMBER : is
