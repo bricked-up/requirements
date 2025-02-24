@@ -9,13 +9,11 @@
 * Productivity Scheme
 Each member of the team is expected to work 10 hours per week. The member should record what they are working on, and how long they worked on it.
 
-Each member will have the freedom to choose a feature / task to work on (unless there are some urgent tasks). To start working on a task, the member must first create a GitHub issue describing what the task entails. The member then branches off of the upstream branch to work on the task. Once the task is finished, the member submits a Pull Request (aka PR) to the ~dev~ branch and requests a PR Review from the backend lead. The PR will need to adhere to the criteria specified in [[*PR Approval Criteria][PR Approval Criteria]] in order to be approved.
+Each member will have the freedom to choose a feature / task to work on (unless there are some urgent tasks). To start working on a task, the member must first create a GitHub issue describing what the task entails. The member then branches off of the upstream branch to work on the task. Once the task is finished, the member submits a Pull Request (aka PR) to the ~master~ branch and requests a PR Review from the backend lead. The PR will need to adhere to the criteria specified in [[*PR Approval Criteria][PR Approval Criteria]] in order to be approved.
 
 Whoever creates the feature is responsible for maintaining it. We will do this to exploit the maintainers familiarity with the code, thus saving time.
 
 By this we aim to increase the concurrency with which our team operates. Status updates will be discussed during weekly team meetings in order to facilitate discussion and to keep the bigger picture in mind.
-
-Once a week, the backend lead will merge ~dev~ to ~master~.
 
 ** PR Approval Criteria
 Here are the criteria the PR must adhere to in order to be accepted:
@@ -28,7 +26,7 @@ Here are the criteria the PR must adhere to in order to be accepted:
 - PR commit message is [[*Commit Message Prefix][properly structured]]
   
 ** Commit Message Prefix
-This applies to final commits (i.e. commits when merging to ~dev~):
+This applies to final commits (i.e. commits when merging to ~master~):
 
 | Commit Type | Issue Type        | Github Action    | Use Case                                               |
 |-------------+-------------------+------------------+--------------------------------------------------------|
@@ -351,7 +349,6 @@ The following describes the full deployment pipeline (assuming task is complete 
 1. All [[*Testing][tests]] run successfully
 2. [[*PR Approval Criteria][PR]] is submitted (tests are run on Github Actions to ensure everything works)
 3. PR is reviewed by lead (must be accepted to continue)
-4. Lead *squash merges* PR into ~dev~ branch (task issue is closed)
-5. ~dev~ is *squash merged* to ~master~ branch (happens once a week)
-6. Once a change has been pushed to ~master~, a webhook is sent to our server's [[*Containerization: Podman][CI/CD]]
-7. CI/CD program pulls changes and rebuilds backend on the server
+4. Lead *squash merges* PR into ~master~ branch (task issue is closed)
+5. Once a change has been pushed to ~master~, a webhook is sent to our server's [[*Containerization: Podman][CI/CD]]
+6. CI/CD program pulls changes and rebuilds backend on the server
