@@ -109,6 +109,8 @@ Moreover, the developer tooling for the language is exceptional, allowing for an
 ** Database: Sqlite
 Sqlite is used extensively in the tech industry. It is extremely light-weight and simple to work with (due to the entire database being contained in a single file). It is a relational-database which fits perfectly with modeling a Project-Management system.
 
+We will be using [[https://pkg.go.dev/modernc.org/sqlite?utm_source=godoc][ModernC's Sqlite Driver]].
+
 ** Client-Server Authentication
 Authentication between the client and the server will be done through session tokens which will be saved in our [[*Database: Sqlite][database]]. We decided that session tokens will be more appropriate than JWT, since our service is consolidated into one centralized service.
 
@@ -164,15 +166,16 @@ erDiagram
         int id PK
         int orgid FK
         string name
-        bool read
-        bool write
-        bool exec
+        bool can_read
+        bool can_write
+        bool can_exec
     }
 
     USER {
         int id PK
         int verifyid FK
         string email UK
+        string password
         string name
     }
 
@@ -195,9 +198,9 @@ erDiagram
         int id PK
         int projectid FK
         string name
-        bool read
-        bool write
-        bool exec
+        bool can_read
+        bool can_write
+        bool can_exec
     }
 
     ISSUE {
