@@ -177,6 +177,7 @@ erDiagram
         string email UK
         string password
         string name
+        string avatar UK
     }
 
     SESSION {
