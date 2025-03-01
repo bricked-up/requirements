@@ -192,7 +192,7 @@ erDiagram
         string name
         int budget
         string charter
-        bool arhived
+        bool archived
     }
 
     PROJECT_ROLE {
@@ -254,7 +254,7 @@ erDiagram
 
     %% Organization members
     USER |o--o{ ORG_MEMBER : is
-    ORGANIZATION ||--|{ ORG_MEMBER :has
+    ORGANIZATION ||--|{ ORG_MEMBER : has
     ORG_MEMBER {
         int id PK
         int userid FK
@@ -262,8 +262,14 @@ erDiagram
     }
 
     %% Organization roles
-    ORG_MEMBER ||--|| ORG_ROLE : has
+    ORG_MEMBER ||--|{ ORG_MEMBER_ROLE : has
     ORGANIZATION ||--|{ ORG_ROLE : offers
+    ORG_ROLE ||--o{ ORG_MEMBER_ROLE : contains
+    ORG_MEMBER_ROLE {
+        int id PK
+        int memberid FK
+        int roleid FK
+    }
 
     %% Organization projects
     ORGANIZATION ||--o{ ORG_PROJECTS : has
@@ -275,7 +281,7 @@ erDiagram
     }
 
     %% Project members
-    PROJECT ||--|{ PROJECT_MEMBER :has
+    PROJECT ||--|{ PROJECT_MEMBER : has
     PROJECT_MEMBER {
         int id PK
         int userid FK
@@ -284,7 +290,13 @@ erDiagram
 
     %% Project roles
     PROJECT ||--|{ PROJECT_ROLE : has
-    PROJECT_MEMBER ||--|{ PROJECT_ROLE : has
+    PROJECT_ROLE ||--o{ PROJECT_MEMBER_ROLE : contains
+    PROJECT_MEMBER ||--|{ PROJECT_MEMBER_ROLE : has
+    PROJECT_MEMBER_ROLE {
+        int id PK
+        int memberid FK
+        int roleid FK        
+    }
 
     %% Project issues
     PROJECT ||--o{ PROJECT_ISSUES : has
