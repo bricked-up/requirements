@@ -7,7 +7,7 @@
 #+date: \today
 
 * Productivity Scheme
-Each member of the team is expected to work 10 hours per week. The member should record what they are working on, and how long they worked on it.
+Each member of the team is expected to complete their tasks for the week as well as attend the general meeting and the backend meeting (each of which will occur once per week). Each team member will have an allocated time-slot in the week where they have to be online in case there are requests for changes in their Pull Request. The tasks will be agreed upon in the backend meeting.
 
 Each member will have the freedom to choose a feature / task to work on (unless there are some urgent tasks). To start working on a task, the member must first create a GitHub issue describing what the task entails. The member then branches off of the upstream branch to work on the task. Once the task is finished, the member submits a Pull Request (aka PR) to the ~master~ branch and requests a PR Review from the backend lead. The PR will need to adhere to the criteria specified in [[*PR Approval Criteria][PR Approval Criteria]] in order to be approved.
 
