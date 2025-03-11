@@ -183,7 +183,7 @@ erDiagram
     SESSION {
         int id PK
         int userid FK
-        date expires
+        timestamp expires
     }
     
     PROJECT {
@@ -210,9 +210,15 @@ erDiagram
         string desc
         int tagid FK
         int priorityid FK
-        date created
-        date completed
+        timestamp created
+        timestamp completed
         int cost
+    }
+
+    DEPENDENCY {
+        int id PK
+        int issueid FK
+        int dependency FK
     }
 
     TAG {
@@ -246,7 +252,15 @@ erDiagram
     VERIFY_USER {
         int id PK
         int code UK
-        date expires
+        timestamp expires
+    }
+
+    %% Password reset
+    USER ||--o{ PASSRESET : has
+    PASSRESET {
+        int id PK
+        int code UK
+        timestamp expires
     }
 
     %% User login sessions
@@ -315,6 +329,9 @@ erDiagram
         int userid FK
         int issueid FK
     }
+
+    %% Issue dependencies
+    ISSUE ||--o{ DEPENDENCY : has
 
     %% Tags
     ISSUE ||--o| TAG : has
