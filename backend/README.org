@@ -178,6 +178,7 @@ erDiagram
         string password
         string name
         string avatar UK
+        bool verified
     }
 
     SESSION {
