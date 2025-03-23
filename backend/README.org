@@ -137,9 +137,9 @@ Since we need the CI/CD pipeline to be accessible from devices outside the unive
 
 ** Repository Organization
 Here is the directory hierarchy for the [[https://github.com/bricked-up/backend][backend]] repository:
-- *src* - for main endpoint handling / routing
-- *src/utils* - common utility functions
-- *sql* - sql scripts to initiate database tables / populate database with dummy data
+- */backend* - for main endpoint handling / routing
+- */backend/utils* - common utility functions
+- */sql* - sql scripts to initiate database tables / populate database with dummy data
 
 
 When developing, compile the code to a binary in the *bin* directory in the root of the repo. The lead will make sure that the *bin* directory will be ignored by Git, that way we do not push any unnecessary binaries.
