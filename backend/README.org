@@ -121,16 +121,19 @@ The Golang backend will be a container called ~backend-prod~ with exposed port ~
 
 Additionally, the [[*Documentation][backend docs]] will be in a container called ~backend-docs~ with exposed port ~6060:6060~.
    
-** Reverse-Proxy: Nginx
-We will use Nginx as a reverse-proxy due to its ease-of-configuration and performance. Assuming that our domain name is ~<brickedup>~  this will be the hierarchy of our sub-domains:
+** Reverse-Proxy: Apache
+We will use Apache as a reverse-proxy due to its ease-of-configuration and performance. The website can be accessed here: http://clabsql.clamv.constructor.university/. The table below maps the ports and path to the service provided. 
 
-| <l>                      |      <c>       |                          <r> |
-| Sub-Domain               | Localhost Port |                  Description |
-|--------------------------+----------------+------------------------------|
-| ~home.<brickedup>~         |     80,443     |             frontend's index |
-| ~backend.<brickedup>~      |      3100      | backend's Golang application |
-| ~docs.backend.<brickedup>~ |      6060      |               backend's [[*Documentation][docs]] |
-| ~cicd.backend.<brickedup>~ |      7123      |        [[*Deployment][CI/CD]] for the backend |
+| <c>  | <l>                     |                    <r> |
+| Port | Path                    |            Description |
+|------+-------------------------+------------------------|
+| 3000 | ~/~                       |       frontend's index |
+| 3100 | ~/~                       |         backend router |
+| 6060 | ~/pkg/brickedup/backend/~ |         backend's [[*Documentation][docs]] |
+| 7123 | ~/frontend~               | [[*Deployment][CI/CD]] for the frontend |
+| 7123 | ~/backend~                |  [[*Deployment][CI/CD]] for the backend |
+
+Since we need the CI/CD pipeline to be accessible from devices outside the university's network, the URL https://webhook.constructor.university/ maps to the internal port ~:7123~.
 
 ** Repository Organization
 Here is the directory hierarchy for the [[https://github.com/bricked-up/backend][backend]] repository:
@@ -210,7 +213,7 @@ erDiagram
         string title
         string desc
         int tagid FK
-        int priorityid FK
+        int priority
         timestamp created
         timestamp completed
         int cost
@@ -230,13 +233,6 @@ erDiagram
         %% color should be stored as a hex value
         int color 
     }
-
-    PRIORITY {
-        int id PK
-        int projectid FK
-        string name
-        int priority
-    }    
 
     REMINDER {
         int id PK
@@ -337,10 +333,6 @@ erDiagram
     %% Tags
     ISSUE ||--o| TAG : has
     PROJECT ||--o{ TAG : offers
-
-    %% Priorities
-    ISSUE ||--o| PRIORITY : has
-    PROJECT ||--o{ PRIORITY : offers
 
     %% Reminders
     ISSUE ||--o{ REMINDER : sends 
